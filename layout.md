@@ -5,5 +5,4 @@ Distribution_of_organizations.tex
 figures/Диаграмма организаций по отраслям/Диаграмма организаций по отраслям.png
 Number_of_organizations_by_country.tex
 Organizations_and_subsidiaries.tex
-figures/Диаграмма дочерних организаций/Диаграмма дочерних организаций.png
 Fullness_of_Wikidata.tex
