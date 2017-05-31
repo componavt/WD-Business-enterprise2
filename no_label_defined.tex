@@ -1,0 +1,89 @@
+\textbf{Распределение организаций по отраслям}
+
+Тип результата: пузырьковая диаграмма.
+
+Используются
+
+\begin{itemize}
+    \item Объект: \href{https://www.wikidata.org/wiki/Q4830453}{Коммерческие организации (Q4830453)},
+    \item Свойство: \href{https://www.wikidata.org/wiki/Property:P452}{отрасль (P542)}
+\end{itemize}
+
+\begin{lstlisting}[language=SPARQL]
+#enterprise industry ranking
+#defaultView:BubbleChart
+SELECT ?industry ?company (count(*) as ?count)
+WHERE 
+{
+    ?org wdt:P31 wd:Q4830453.
+    ?org wdt:P452 ?industry .
+    OPTIONAL {
+		?industry rdfs:label ?company
+		filter (lang(?company) = "en")
+	}
+}
+GROUP BY ?industry ?company
+ORDER BY DESC(?count) ASC(?company)
+\end{lstlisting}
+
+\href{https://query.wikidata.org/#%23enterprise%20industry%20ranking%0A%23defaultView%3ABubbleChart%0ASELECT%20%3Findustry%20%3Fcompany%20%28count%28%2a%29%20as%20%3Fcount%29%0AWHERE%20%0A%7B%0A%20%20%20%20%3Forg%20wdt%3AP31%20wd%3AQ4830453.%0A%20%20%20%20%3Forg%20wdt%3AP452%20%3Findustry%20.%0A%20%20%20%20OPTIONAL%20%7B%0A%09%09%3Findustry%20rdfs%3Alabel%20%3Fcompany%0A%09%09filter%20%28lang%28%3Fcompany%29%20%3D%20%22en%22%29%0A%09%7D%0A%7D%0AGROUP%20BY%20%3Findustry%20%3Fcompany%0AORDER%20BY%20DESC%28%3Fcount%29%20ASC%28%3Fcompany%29%0A}{SPARQL-запрос}, 864 записей.
+
+\textbf{Количество организаций по странам}
+
+Количество коммерческих организаций в каждой стране мира.
+
+Используются
+
+\begin{itemize}
+    \item Объект: \href{https://www.wikidata.org/wiki/Q4830453}{Коммерческие организации (Q4830453)},
+    \item Свойство: \href{https://www.wikidata.org/wiki/Property:P17}{страна (P17)}
+\end{itemize}
+
+\begin{lstlisting}[language=SPARQL]
+SELECT ?countryLabel (count(?org) as ?count)
+WHERE
+{
+    ?org  wdt:P31 wd:Q4830453.
+    ?org wdt:P17 ?country.
+
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+ }
+  GROUP BY ?country ?countryLabel
+  ORDER BY DESC (?count)
+\end{lstlisting}
+
+\href{https://query.wikidata.org/#SELECT%20%3FcountryLabel%20%28count%28%3Forg%29%20as%20%3Fcount%29%0AWHERE%0A%7B%0A%20%20%20%20%3Forg%20%20wdt%3AP31%20wd%3AQ4830453.%0A%20%20%20%20%3Forg%20wdt%3AP17%20%3Fcountry.%0A%0A%20%20SERVICE%20wikibase%3Alabel%20%7B%20bd%3AserviceParam%20wikibase%3Alanguage%20%22en%22%20%7D%0A%20%7D%0A%20%20GROUP%20BY%20%3Fcountry%20%3FcountryLabel%0A%20%20ORDER%20BY%20DESC%20%28%3Fcount%29%0A}{SPARQL query} 198 Results
+
+\textbf{Полнота викиданных}
+
+По данным категории \href{https://ru.wikipedia.org/wiki/%D0%9A%D0%B0%D1%82%D0%B5%D0%B3%D0%BE%D1%80%D0%B8%D1%8F:%D0%9A%D0%BE%D0%BC%D0%BF%D0%B0%D0%BD%D0%B8%D0%B8_%D0%BF%D0%BE_%D0%B0%D0%BB%D1%84%D0%B0%D0%B2%D0%B8%D1%82%D1%83}{Компании по алфавиту} Русской Википедии существует как минимум 10 122 коммерческие организации.
+
+По данным категории \href{https://en.wikipedia.org/wiki/List_of_companies_of_Russia}{List of companies of Russia} Английской Википедии в Росиии существует как минимум 208 коммерческих организаций.
+
+Невозможно получить релевантные данные о количестве коммерческих организаций, т.к. их количество растёт с каждым днём, а данные о них не хранятся в открытом доступе. Взять к примеру \href{https://www.nalog.ru/rn77/service/egrip2/}{ЕГРЮЛ}, который предоставляет данные за плату.
+
+\textbf{Организации и их дочерние организации}
+
+Используются
+
+\begin{itemize}
+    \item Объект: \href{https://www.wikidata.org/wiki/Q4830453}{Коммерческие организации (Q4830453)},
+    \item Свойство: \href{https://www.wikidata.org/wiki/Property:P355}{дочерняя организация (P355)}
+\end{itemize}
+
+\begin{lstlisting}[language=SPARQL]
+#subsidary graph
+#defaultView:Graph
+SELECT ?org ?orgLabel ?subsidary ?subsidaryLabel
+WHERE
+{
+    ?org wdt:P31 wd:Q22687
+    ; rdfs:label ?item_label .
+
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+    OPTIONAL { ?org wdt:P355 ?subsidary . }
+    FILTER  (LANG(?item_label) = "en") 
+}
+\end{lstlisting}
+
+\href{https://query.wikidata.org/#%23neighboring%20countries%20graph%0A%23defaultView%3AGraph%0ASELECT%20%3Forg%20%3ForgLabel%20%3Fsubsidary%20%3FsubsidaryLabel%0AWHERE%0A%7B%0A%20%20%20%20%3Forg%20wdt%3AP31%20wd%3AQ22687%0A%20%20%20%20%3B%20rdfs%3Alabel%20%3Fitem_label%20.%0A%0A%20%20%20%20SERVICE%20wikibase%3Alabel%20%7B%20bd%3AserviceParam%20wikibase%3Alanguage%20%22en%22%20%7D%0A%20%20%20%20OPTIONAL%20%7B%20%3Forg%20wdt%3AP355%20%3Fsubsidary%20.%20%7D%0A%20%20%20%20FILTER%20%20%28LANG%28%3Fitem_label%29%20%3D%20%22en%22%29%20%0A%7D%0A}{SPARQL query} 428 Results  

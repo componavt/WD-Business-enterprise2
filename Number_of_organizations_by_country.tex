@@ -1,0 +1,24 @@
+\textbf{Количество организаций по странам}
+
+Количество коммерческих организаций в каждой стране мира. 
+
+Используются:
+\begin{itemize}
+    \item Объект: \href{https://www.wikidata.org/wiki/Q4830453}{Коммерческие организации (Q4830453)},
+    \item Свойство: \href{https://www.wikidata.org/wiki/Property:P17}{страна (P17)}
+\end{itemize}
+
+\begin{lstlisting}[language=SPARQL]
+SELECT ?countryLabel (count(?org) as ?count)
+WHERE
+{
+    ?org  wdt:P31 wd:Q4830453.
+    ?org wdt:P17 ?country.
+
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+ }
+  GROUP BY ?country ?countryLabel
+  ORDER BY DESC (?count)
+\end{lstlisting}
+
+\href{https://query.wikidata.org/#SELECT%20%3FcountryLabel%20%28count%28%3Forg%29%20as%20%3Fcount%29%0AWHERE%0A%7B%0A%20%20%20%20%3Forg%20%20wdt%3AP31%20wd%3AQ4830453.%0A%20%20%20%20%3Forg%20wdt%3AP17%20%3Fcountry.%0A%0A%20%20SERVICE%20wikibase%3Alabel%20%7B%20bd%3AserviceParam%20wikibase%3Alanguage%20%22en%22%20%7D%0A%20%7D%0A%20%20GROUP%20BY%20%3Fcountry%20%3FcountryLabel%0A%20%20ORDER%20BY%20DESC%20%28%3Fcount%29%0A}{SPARQL-запрос}, 198 записей.

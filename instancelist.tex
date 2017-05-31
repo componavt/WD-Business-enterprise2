@@ -1,0 +1,48 @@
+\textbf{Экземпляры объекта "Коммерческие организации"}
+
+\begin{itemize}
+    \item Объекты: \href{https://www.wikidata.org/wiki/Q4830453}{Коммерческие организации (Q4830453)},
+\end{itemize}
+
+Список всех коммерческих организаций.
+
+\begin{lstlisting}[language=SPARQL]
+#added 2017-02
+#List of `instances of` "business enterprise" 
+SELECT ?lang ?langLabel
+WHERE
+{
+    ?lang wdt:P31 wd:Q4830453.
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+\end{lstlisting}
+
+\href{https://query.wikidata.org/#%23List%20of%20%60instances%20of%60%20%22business%20enterprise%22%20%0ASELECT%20%3Flang%20%3FlangLabel%0AWHERE%0A%7B%0A%20%20%20%20%3Flang%20wdt%3AP31%20wd%3AQ4830453.%0A%20%20%20%20SERVICE%20wikibase%3Alabel%20%7B%20bd%3AserviceParam%20wikibase%3Alanguage%20%22en%22%20%7D%0A%7D}{SPARQL-query}, 109383 записей.
+
+Наиболее полными и проработанными по теме business enterprise на Викиданных являются:
+\href{https://www.wikidata.org/wiki/Q95}{Google}, 
+\href{https://www.wikidata.org/wiki/Q312}{Apple},
+\href{https://www.wikidata.org/wiki/Q2283}{Microsoft}.
+
+Почти пустыми и малоинформативными языками оказались:
+\href{https://www.wikidata.org/wiki/Q40987}{Pininfarina},
+\href{https://www.wikidata.org/wiki/Q46065}{ANHUI EXPRESSWAY COMPANY LIMITED},
+\href{https://www.wikidata.org/wiki/Q45812}{Futura et Marge}.
+
+\textbf{Безымянные объекты}
+
+Недостаток полученного списка в том, что ряд объектов получился безымянным на Викиданных (No label defined). Попробуем получить список банков, у которых поле "label" будет непустым. 
+
+\begin{lstlisting}[language=SPARQL]
+#List of `instances of` "business enterprise" only with a label.
+SELECT ?item ?item_label
+WHERE
+{
+    ?item wdt:P31 wd:Q4830453
+    ; rdfs:label ?item_label . 
+
+    FILTER (LANG(?item_label) = "en") . 
+}
+\end{lstlisting}
+
+\href{https://query.wikidata.org/#SELECT%20%3Fitem%20%3Fitem_label%0AWHERE%0A%7B%0A%20%20%20%20%3Fitem%20wdt%3AP31%20wd%3AQ4830453%0A%20%20%20%20%3B%20rdfs%3Alabel%20%3Fitem_label%20.%20%0A%0A%20%20%20%20FILTER%20%28LANG%28%3Fitem_label%29%20%3D%20%22en%22%29%20.%20%0A%7D}{SPARQL-запрос}, 74556 записей.
