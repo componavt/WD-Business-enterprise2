@@ -6,8 +6,8 @@
 
 Используются:
 \begin{itemize}
-    \item Объект: \href{https://www.wikidata.org/wiki/Q4830453}{Коммерческие организации (Q4830453)},
-    \item Свойство: \href{https://www.wikidata.org/wiki/Property:P452}{отрасль (P542)}
+    \item Объект: \href{https://www.wikidata.org/wiki/Q4830453}{business enterprise (Q4830453)} (коммерческая организация)
+    \item Свойство: \href{https://www.wikidata.org/wiki/Property:P452}{industry (P542)} (отрасль)
 \end{itemize}
 
 \begin{lstlisting}[language=SPARQL]
@@ -29,7 +29,9 @@ ORDER BY DESC(?count) ASC(?company)
 
 \href{https://query.wikidata.org/#%23enterprise%20industry%20ranking%0A%23defaultView%3ABubbleChart%0ASELECT%20%3Findustry%20%3Fcompany%20%28count%28%2a%29%20as%20%3Fcount%29%0AWHERE%20%0A%7B%0A%20%20%20%20%3Forg%20wdt%3AP31%20wd%3AQ4830453.%0A%20%20%20%20%3Forg%20wdt%3AP452%20%3Findustry%20.%0A%20%20%20%20OPTIONAL%20%7B%0A%09%09%3Findustry%20rdfs%3Alabel%20%3Fcompany%0A%09%09filter%20%28lang%28%3Fcompany%29%20%3D%20%22en%22%29%0A%09%7D%0A%7D%0AGROUP%20BY%20%3Findustry%20%3Fcompany%0AORDER%20BY%20DESC%28%3Fcount%29%20ASC%28%3Fcompany%29%0A}{SPARQL-запрос}, 864 записи.
 
-Проанализировав данную диаграмму (рис. 1) можно сделать вывод о количестве организаций, занимающихся в той или иной отрасли. В том числе, имеется возможность построить таблицу на основе полученных данных (составить список из 5 самых популярных отраслей):
+Проанализировав данную диаграмму (рис. 1) можно сделать вывод о количестве организаций, специализирующихся в той или иной отрасли. На основе полученных данных можно построить таблицу (составить список из 5 самых популярных отраслей):
+
+\hfill
 
 ТОП5 самых популярных отраслей: \\
 \begin{tabular}{|l|l|}
@@ -48,7 +50,16 @@ manufacturing & 506 \\
 \hline
 \end{tabular}
 
-Какие и сколько отраслей существуют в России? 
+
+\begin{figure}[h]
+	\includegraphics[scale=2.2]{branch/branch.png}
+	\centering
+	\caption{Диаграмма организаций мира по отраслям}
+	\centering
+\end{figure}
+
+
+Ответим на следующий вопрос: Какие и сколько отраслей существуют в России?
 
 \begin{lstlisting}[language=SPARQL]
 #enterprise industry ranking in Russia
@@ -87,9 +98,7 @@ video game industry & 9 \\
 \hline
 \end{tabular}
 
-Можно сделать вывод, что такая отрасль как розничная торговля в России преобладает над остальными, причем очень серьезно. Если количество организаций в этой области достигает 78, то в следующей по счету отрасли (автомобильной промышленности) работают только 13 организаций. 
-
-Тем не менее, о точности и достоверности полученных результатов говорить не стоит (в данном случае они не полностью точны). Не были учтены, например, такие промышленности: нефтеперерабатывающая, пищевая, легкая.
+Отсюда делаем вывод, что такая отрасль как розничная торговля в России преобладает над остальными, причем очень серьезно. Если количество организаций в этой области достигает 78, то в следующей по счету отрасли (автомобильной промышленности) работает только 13 организаций.
 
 Для сравнения можно построить список существующих отраслей какой-нибудь другой страны (например, Норвегии).
 
@@ -113,4 +122,4 @@ ORDER BY DESC(?count) ASC(?company)
 
 \href{https://query.wikidata.org/#%23enterprise%20industry%20ranking%20in%20Norway%0A%23defaultView%3ABubbleChart%0ASELECT%20%3Findustry%20%3Fcompany%20%28count%28%2a%29%20as%20%3Fcount%29%20%0AWHERE%20%0A%7B%0A%20%20%20%20%3Forg%20wdt%3AP31%20wd%3AQ4830453.%0A%20%20%20%20%3Forg%20wdt%3AP452%20%3Findustry%20.%0A%20%20%20%20%3Forg%20wdt%3AP17%20wd%3AQ20.%20%23Norway%20country%0A%20%20%20%20OPTIONAL%20%7B%0A%09%09%3Findustry%20rdfs%3Alabel%20%3Fcompany%0A%09%09filter%20%28lang%28%3Fcompany%29%20%3D%20%22en%22%29%0A%09%7D%0A%7D%0AGROUP%20BY%20%3Findustry%20%3Fcompany%0AORDER%20BY%20DESC%28%3Fcount%29%20ASC%28%3Fcompany%29%0A}{SPARQL-запрос}, 41 запись.
 
-Здесь преобладающей отраслью является производство (manufacturing).
+Здесь преобладающей отраслью является \href{https://www.wikidata.org/wiki/Q187939}{manufacturing} (производство)
