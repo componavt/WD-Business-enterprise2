@@ -1,4 +1,4 @@
-\textbf{Экземпляры объекта "Коммерческие организации"}
+\section*{Экземпляры объекта "Коммерческие организации"}
 
 Используются:
 
@@ -6,9 +6,9 @@
     \item Объект: \href{https://www.wikidata.org/wiki/Q4830453}{business enterprise (Q4830453)} (коммерческая организация)
 \end{itemize}
 
-Список всех коммерческих организаций.
+Список всех коммерческих организаций.(Листинг \ref{instenterprise})
 
-\begin{lstlisting}[language=SPARQL]
+\begin{lstlisting}[language=SPARQL,label=instenterprise,caption=Список всех коммерческих организаций]
 #added 2017-02
 #List of `instances of` "business enterprise" 
 SELECT ?lang ?langLabel
@@ -31,11 +31,11 @@ WHERE
 \href{https://www.wikidata.org/wiki/Q46065}{ANHUI EXPRESSWAY COMPANY LIMITED},
 \href{https://www.wikidata.org/wiki/Q45812}{Futura et Marge}.
 
-\textbf{Безымянные объекты}
+\section*{Безымянные объекты}
 
-Недостаток полученного списка в том, что ряд объектов получился безымянным на Викиданных (No label defined). Попробуем получить список банков, у которых поле "label" будет непустым. 
+Недостаток полученного списка в том, что ряд объектов получился безымянным на Викиданных (No label defined). Попробуем получить список банков, у которых поле "label" будет непустым. (Листинг \ref{nameless})
 
-\begin{lstlisting}[language=SPARQL]
+\begin{lstlisting}[language=SPARQL,label=nameless,caption=Список организаций с указанным названием]
 #List of `instances of` "business enterprise" only with a label.
 SELECT ?item ?item_label
 WHERE

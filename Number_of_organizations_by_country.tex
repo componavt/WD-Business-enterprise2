@@ -1,6 +1,6 @@
-\textbf{Количество организаций по странам}
+\section*{Количество организаций по странам}
 
-Напишем SPARQL-запрос для получения количества коммерческих организаций в каждой стране мира.
+Напишем SPARQL-запрос для получения количества коммерческих организаций в каждой стране мира. (Листинг \ref{orgsbycountry})
 
 Используются:
 \begin{itemize}
@@ -8,7 +8,7 @@
     \item Свойство: \href{https://www.wikidata.org/wiki/Property:P17}{country (P17)} (страна)
 \end{itemize}
 
-\begin{lstlisting}[language=SPARQL]
+\begin{lstlisting}[language=SPARQL,label=orgsbycountry,caption=Количество организаций в каждой стране мира]
 SELECT ?countryLabel (count(?org) as ?count)
 WHERE
 {

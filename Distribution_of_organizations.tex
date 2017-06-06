@@ -1,6 +1,6 @@
-\textbf{Распределение организаций по отраслям}
+\section*{Распределение организаций по отраслям}
 
-Каждая организация специализируется на какой-либо отрасли. Для того чтобы понять какая отрасль, например, является самой популярной на данной момент (то есть, сколько организаций работают в данной отрасли) можно построить диаграмму.
+Каждая организация специализируется на какой-либо отрасли. Для того чтобы понять какая отрасль, например, является самой популярной на данной момент (то есть, сколько организаций работают в данной отрасли) можно построить диаграмму. (Листинг \ref{industryorg})
 
 Тип результата: пузырьковая диаграмма. 
 
@@ -10,7 +10,7 @@
     \item Свойство: \href{https://www.wikidata.org/wiki/Property:P452}{industry (P542)} (отрасль)
 \end{itemize}
 
-\begin{lstlisting}[language=SPARQL]
+\begin{lstlisting}[language=SPARQL,label=industryorg,caption=Диаграмма распределения организаций по отраслям]
 #enterprise industry ranking
 #defaultView:BubbleChart
 SELECT ?industry ?company (count(*) as ?count)
@@ -29,26 +29,28 @@ ORDER BY DESC(?count) ASC(?company)
 
 \href{https://query.wikidata.org/#%23enterprise%20industry%20ranking%0A%23defaultView%3ABubbleChart%0ASELECT%20%3Findustry%20%3Fcompany%20%28count%28%2a%29%20as%20%3Fcount%29%0AWHERE%20%0A%7B%0A%20%20%20%20%3Forg%20wdt%3AP31%20wd%3AQ4830453.%0A%20%20%20%20%3Forg%20wdt%3AP452%20%3Findustry%20.%0A%20%20%20%20OPTIONAL%20%7B%0A%09%09%3Findustry%20rdfs%3Alabel%20%3Fcompany%0A%09%09filter%20%28lang%28%3Fcompany%29%20%3D%20%22en%22%29%0A%09%7D%0A%7D%0AGROUP%20BY%20%3Findustry%20%3Fcompany%0AORDER%20BY%20DESC%28%3Fcount%29%20ASC%28%3Fcompany%29%0A}{SPARQL-запрос}, 864 записи.
 
-Проанализировав данную диаграмму (рис. 1) можно сделать вывод о количестве организаций, специализирующихся в той или иной отрасли. На основе полученных данных можно построить таблицу (составить список из 5 самых популярных отраслей):
-
-\hfill
-
-ТОП5 самых популярных отраслей: \\
+Проанализировав данную диаграмму (рис. \ref{industrygraph}) можно сделать вывод о количестве организаций, специализирующихся в той или иной отрасли. На основе полученных данных можно построить таблицу (составить список из 5 самых популярных отраслей) (см. табл. \ref{topindustry})
+ 
+\begin{table}[h]
+\centering
 \begin{tabular}{|l|l|}
 \hline
-\textbf{Industry name} & \textbf{Quantity of organizations} \\
+\textbf{Название отрасли} & \textbf{Количество организаций} \\
 \hline
-automative industry & 1149 \\	
+Автомобильная промышленность & 1149 \\	
 \hline
-retail & 843 \\
+Розничная торговля & 843 \\
 \hline
-telecommunications & 648 \\
+Телекоммуникации & 648 \\
 \hline
-video game industry & 633 \\
+Видео игры & 633 \\
 \hline
-manufacturing & 506 \\
+Обрабатывающая промышленность & 506 \\
 \hline
 \end{tabular}
+\caption{Топ 5 самых популярных отраслей}
+\label{topindustry}
+\end{table}
 
 
 \begin{figure}[h]
@@ -56,12 +58,14 @@ manufacturing & 506 \\
 	\centering
 	\caption{Диаграмма организаций мира по отраслям}
 	\centering
+	\label{industrygraph}
 \end{figure}
 
+\newpage
 
-Ответим на следующий вопрос: Какие и сколько отраслей существуют в России?
+Ответим на следующий вопрос: "Какие и сколько отраслей существуют в России?"(Листинг \ref{rusidustry})
 
-\begin{lstlisting}[language=SPARQL]
+\begin{lstlisting}[language=SPARQL,label=rusidustry,caption=Диаграмма распределения организаций по отраслям в России]
 #enterprise industry ranking in Russia
 #defaultView:BubbleChart
 SELECT ?industry ?company (count(*) as ?count) 
@@ -81,28 +85,32 @@ ORDER BY DESC(?count) ASC(?company)
 
 \href{https://query.wikidata.org/#%23enterprise%20industry%20ranking%0A%23defaultView%3ABubbleChart%0ASELECT%20%3Findustry%20%3Fcompany%20%28count%28%2a%29%20as%20%3Fcount%29%20%0AWHERE%20%0A%7B%0A%20%20%20%20%3Forg%20wdt%3AP31%20wd%3AQ4830453.%0A%20%20%20%20%3Forg%20wdt%3AP452%20%3Findustry%20.%0A%20%20%20%20%3Forg%20wdt%3AP17%20wd%3AQ159.%20%23Russia%20country%0A%20%20%20%20OPTIONAL%20%7B%0A%09%09%3Findustry%20rdfs%3Alabel%20%3Fcompany%0A%09%09filter%20%28lang%28%3Fcompany%29%20%3D%20%22en%22%29%0A%09%7D%0A%7D%0AGROUP%20BY%20%3Findustry%20%3Fcompany%0AORDER%20BY%20DESC%28%3Fcount%29%20ASC%28%3Fcompany%29%0A}{SPARQL-запрос}, 60 записей.
 
-ТОП5 самых популярных отраслей в России: \\
+\begin{table}[h]
+\centering
 \begin{tabular}{|l|l|}
 \hline
-\textbf{Industry name} & \textbf{Quantity of organizations} \\
+\textbf{Название отрасли} & \textbf{Количество организаций} \\
 \hline
-retail & 78 \\
+Розничная торговля & 78 \\
 \hline
-automative industry & 13 \\	
+Автомобильная промышленность & 13 \\	
 \hline
-arms industry & 10 \\
+Оружейная промышленность & 10 \\
 \hline
-aerospace industry & 9 \\
+Аэрокосмическая промышленность & 9 \\
 \hline
-video game industry & 9 \\
+Видео игры & 9 \\
 \hline
 \end{tabular}
+\caption{Топ 5 самых популярных отраслей в России}
+\label{topindustryrus}
+\end{table}
 
-Отсюда делаем вывод, что такая отрасль как розничная торговля в России преобладает над остальными, причем очень серьезно. Если количество организаций в этой области достигает 78, то в следующей по счету отрасли (автомобильной промышленности) работает только 13 организаций.
+Отсюда (табл. \ref{topindustryrus}) делаем вывод, что такая отрасль как розничная торговля в России преобладает над остальными, причем очень серьезно. Если количество организаций в этой области достигает 78, то в следующей по счету отрасли (автомобильной промышленности) работает только 13 организаций.
 
-Для сравнения можно построить список существующих отраслей какой-нибудь другой страны (например, Норвегии).
+Для сравнения можно построить список существующих отраслей какой-нибудь другой страны (например, Норвегии). (Листинг \ref{norwayorgs})
 
-\begin{lstlisting}[language=SPARQL]
+\begin{lstlisting}[language=SPARQL,label=norwayorgs,caption=Диаграмма распределения организаций по отраслям в России]
 #enterprise industry ranking in Norway
 #defaultView:BubbleChart
 SELECT ?industry ?company (count(*) as ?count) 
