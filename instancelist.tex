@@ -3,10 +3,10 @@
 Используются:
 
 \begin{itemize}
-    \item Объект: \href{https://www.wikidata.org/wiki/Q4830453}{business enterprise (Q4830453)} (коммерческая организация)
+    \item Объект: \href{https://www.wikidata.org/wiki/Q4830453}{business enterprise (Q4830453)} (коммерческая организация).
 \end{itemize}
 
-Список всех коммерческих организаций.(Листинг \ref{instenterprise})
+Список всех коммерческих организаций (листинг \ref{instenterprise}).
 
 \begin{lstlisting}[language=SPARQL,label=instenterprise,caption=Список всех коммерческих организаций]
 #added 2017-02
@@ -19,23 +19,23 @@ WHERE
 }
 \end{lstlisting}
 
-\href{https://query.wikidata.org/#%23List%20of%20%60instances%20of%60%20%22business%20enterprise%22%20%0ASELECT%20%3Flang%20%3FlangLabel%0AWHERE%0A%7B%0A%20%20%20%20%3Flang%20wdt%3AP31%20wd%3AQ4830453.%0A%20%20%20%20SERVICE%20wikibase%3Alabel%20%7B%20bd%3AserviceParam%20wikibase%3Alanguage%20%22en%22%20%7D%0A%7D}{SPARQL-query}, 109383 записей.
+\href{https://query.wikidata.org/#%23List%20of%20%60instances%20of%60%20%22business%20enterprise%22%20%0ASELECT%20%3Flang%20%3FlangLabel%0AWHERE%0A%7B%0A%20%20%20%20%3Flang%20wdt%3AP31%20wd%3AQ4830453.%0A%20%20%20%20SERVICE%20wikibase%3Alabel%20%7B%20bd%3AserviceParam%20wikibase%3Alanguage%20%22en%22%20%7D%0A%7D}{SPARQL-запрос}, 109383 записей.
 
-Наиболее полными и проработанными по теме business enterprise на Викиданных являются:
+Наиболее полными и проработанными по теме коммерческие организации на Викиданных являются:
 \href{https://www.wikidata.org/wiki/Q95}{Google}, 
 \href{https://www.wikidata.org/wiki/Q312}{Apple},
 \href{https://www.wikidata.org/wiki/Q2283}{Microsoft}.
 
-Почти пустыми и малоинформативными языками оказались:
+Почти пустыми и малоинформативными организацями оказались:
 \href{https://www.wikidata.org/wiki/Q40987}{Pininfarina},
 \href{https://www.wikidata.org/wiki/Q46065}{ANHUI EXPRESSWAY COMPANY LIMITED},
 \href{https://www.wikidata.org/wiki/Q45812}{Futura et Marge}.
 
 \section*{Безымянные объекты}
 
-Недостаток полученного списка в том, что ряд объектов получился безымянным на Викиданных (No label defined). Попробуем получить список банков, у которых поле "label" будет непустым. (Листинг \ref{nameless})
+Недостаток полученного списка в том, что ряд объектов получился безымянным на Викиданных (No label defined). Попробуем получить список организаций, у которых поле \enquote{label}     будет непустым. (Листинг \ref{nameless})
 
-\begin{lstlisting}[language=SPARQL,label=nameless,caption=Список организаций с указанным названием]
+\begin{lstlisting}[language=SPARQL,label=nameless,caption={Список организаций, у которых указано имя в Викиданных на английском языке}]
 #List of `instances of` "business enterprise" only with a label.
 SELECT ?item ?item_label
 WHERE
